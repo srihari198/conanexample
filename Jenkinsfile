@@ -1,5 +1,5 @@
 node{
-    def server = Artifactory.server "Artprod"
+    def server = Artifactory.server "Art"
     def client = Artifactory.newConanClient()
     def name = client.remote.add server: server, repo: "conan-local"
 
