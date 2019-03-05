@@ -18,4 +18,8 @@ node{
           sh "cmake ../ && cmake --build ."
         }
     }
+    stage("Upload packages"){
+        String command = "upload LibA* --all -r ${name} --confirm"
+        def b = client.run(command: command)
+    }
 }
