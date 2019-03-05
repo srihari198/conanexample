@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake
 class LibaConan(ConanFile):
     name = "LibA"
-    version = "1.0.0"
+    version = "1.0.1"
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = "src/*"
 
