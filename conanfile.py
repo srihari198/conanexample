@@ -4,7 +4,7 @@ class LibaConan(ConanFile):
     version = "1.0.0"
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = "src/*"
-    requires = "LibA/1.0.0@user/testing"
+    requires = "LibA/1.0.1@user/testing"
     generators = "cmake"
 
     def build(self):
