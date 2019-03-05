@@ -6,11 +6,16 @@ node{
     stage("Get recipe"){
         checkout scm
     }
-    stage("Create package"){
-        client.run(command: "create . user/test -s arch=x86_64")
+    stage("Get dependencies and publish build info"){
+    sh "mkdir -p build"
+    dir ('build') {
+      def b = client.run(command: "install ..")
+      server.publishBuildInfo b
+        }
     }
-    stage("Upload packages"){
-        String command = "upload LibA* --all -r ${name} --confirm"
-        def b = client.run(command: command)
+    stage("Build/Test project"){
+        dir ('build') {
+          sh "cmake ../ && cmake --build ."
+        }
     }
 }
