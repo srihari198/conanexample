@@ -7,7 +7,7 @@ node{
         checkout scm
     }
     stage("Create package"){
-        client.run(comman: "create . user/test -s os=Macos")
+        client.run(command: "create . user/test -s arch=x86")
     }
     stage("Upload packages"){
         String command = "upload LibA* -- all -r ${name} --confirm"
