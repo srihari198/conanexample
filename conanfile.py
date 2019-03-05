@@ -4,6 +4,8 @@ class LibaConan(ConanFile):
     version = "1.0.1"
     settings = "os", "compiler", "build_type", "arch"
     exports_sources = "src/*"
+    requires = "OpenSSL/1.0.2g@lasote/stable"
+    generators = "cmake"
 
     def build(self):
         cmake = CMake(self)
