@@ -1,6 +1,6 @@
 project(MyHello CXX)
 
-include($(CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
 add_library(b b.cpp)
