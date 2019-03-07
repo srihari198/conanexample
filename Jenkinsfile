@@ -1,25 +1,24 @@
-node{
-    def server = Artifactory.server "Art"
+def artifactory_name = "Art"
+def artifactory_repo = "conan-local"
+def repo_url = 'https://github.com/srihari198/conanexample.git'
+def repo_branch = "release/1.0.0"
+
+node {
+    def server = Artifactory.server artifactory_name
     def client = Artifactory.newConanClient()
-    def name = client.remote.add server: server, repo: "conan-local"
+    def serverName = client.remote.add server: server, repo: artifactory_repo
 
     stage("Get recipe"){
-        checkout scm
+        git branch: repo_branch, url: repo_url
     }
-    stage("Get dependencies and publish build info"){
-    sh "mkdir -p build"
-    dir ('build') {
-      def b = client.run(command: "install ..")
-      server.publishBuildInfo b
-        }
+
+    stage("Test recipe"){
+        client.run(command: "create")
     }
-    stage("Build/Test project"){
-        dir ('build') {
-          sh "cmake ../ && cmake --build ."
-        }
-    }
+
     stage("Upload packages"){
-        String command = "upload LibA* --all -r ${name} --confirm"
+        String command = "upload * --all -r ${serverName} --confirm"
         def b = client.run(command: command)
+        server.publishBuildInfo b
     }
 }
